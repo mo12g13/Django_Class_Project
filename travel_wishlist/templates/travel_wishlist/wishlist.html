@@ -1,0 +1,36 @@
+{% extends 'travel_wishlist/base.html' %}
+{% block content %}
+
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Travel Wishlist</h2>
+<form method="POST" action="{% url 'place_list' %}">
+    {% csrf_token %}
+    {{form}}
+    <button type="submit">add</button>
+</form>
+{% for place in places %}
+<div>
+    <p>{{place.name}}</p>
+
+    <form method='POST' action="{% url 'place_is_visited' %}">
+        {% csrf_token %}
+        <input type="hidden" name="pk", value="{{place.pk}}">
+        <button type="submit">Visited!</button>
+    </form>
+
+
+</div>
+{% empty %}
+<p>You have no places in your wishlist</p>
+{%endfor%}
+ <a href="{% url 'place_visited' %}">Places you've visited</a>
+</body>
+</html>
+{% endblock %}
