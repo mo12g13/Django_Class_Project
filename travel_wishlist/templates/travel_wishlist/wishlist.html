@@ -13,16 +13,16 @@
 <form method="POST" action="{% url 'place_list' %}">
     {% csrf_token %}
     {{form}}
-    <button type="submit">add</button>
+    <button type="submit" id="add_new_place">add</button>
 </form>
 {% for place in places %}
 <div>
-    <p>{{place.name}}</p>
+    <p id="place_name_{{ place.pk }}">{{place.name}}</p>
 
     <form method='POST' action="{% url 'place_is_visited' %}">
         {% csrf_token %}
         <input type="hidden" name="pk", value="{{place.pk}}">
-        <button type="submit">Visited!</button>
+        <button type="submit" class="mark_visited"  id="visited_{{ place.pk }}">Visited!</button>
     </form>
 
 
