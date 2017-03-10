@@ -22,16 +22,22 @@ def place_visited(request):
     visited = Place.objects.filter(visited=True)
     return render(request, 'travel_wishlist/visited.html', {'visited': visited})
 
-def post_new_page(request, pk):
-    form = PlaceVisitedForm(request.POST or None)
-    if request.method == "POST":
-        place = form.save()
-        if form.is_valid():
-            place.save()
-            return redirect('place_list')
-    details = get_object_or_404(Place, pk=pk)
 
-    return render(request, 'travel_wishlist/placepage.html', {'details':details, 'form': form })
+def post_new_page(request, pk):
+
+    place = get_object_or_404(Place, pk=pk)
+
+    if request.method == "POST":
+        form = PlaceVisitedForm(request.POST, instance=place)
+
+        if form.is_valid():
+            form.save()
+            return redirect('place_list')
+
+    # Else, this is a get request. (or the form validation failed.
+    #Create new form, and show the placepage.
+    form = PlaceVisitedForm(instance=place) # Populate the form with data about this place
+    return render(request, 'travel_wishlist/placepage.html', {'place':place, 'form': form })
 
 
 def place_is_visited(request):
@@ -44,5 +50,3 @@ def place_is_visited(request):
         place.save()
 
     return redirect('place_list')
-
-
