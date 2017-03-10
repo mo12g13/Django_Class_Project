@@ -12,15 +12,20 @@
 <h2>Travel Wishlist</h2>
 <form method="POST" action="{% url 'place_list' %}">
     {% csrf_token %}
-    {{form}}
+      {{form}}
+
     <button type="submit" id="add_new_place">add</button>
 </form>
 {% for place in places %}
 <div>
-    <p id="place_name_{{ place.pk }}">{{place.name}}</p>
+    <!--<p id="place_name_{{ place.pk }}">{{place.name}}</p>-->
+     <h1><a href="{% url 'post_new_page' pk=place.pk %}">{{place.name}}</a> </h1>
+
+
 
     <form method='POST' action="{% url 'place_is_visited' %}">
         {% csrf_token %}
+
         <input type="hidden" name="pk", value="{{place.pk}}">
         <button type="submit" class="mark_visited"  id="visited_{{ place.pk }}">Visited!</button>
     </form>
