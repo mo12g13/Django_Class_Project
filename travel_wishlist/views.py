@@ -13,7 +13,7 @@ def place_list(request):
             place.save()
             return redirect('place_list')
 
-    places = Place.objects.filter(visited=False)
+    places = Place.objects.all()
     form = NewPlaceForm()
     return render(request, 'travel_wishlist/wishlist.html', {'places': places, 'form': form})
 
@@ -32,7 +32,7 @@ def post_new_page(request, pk):
 
         if form.is_valid():
             form.save()
-            return redirect('place_list')
+            return redirect('place_visited')
 
     # Else, this is a get request. (or the form validation failed.
     #Create new form, and show the placepage.
