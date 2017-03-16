@@ -1,0 +1,1 @@
+This project is a basic wishlist app done with python web framework called django

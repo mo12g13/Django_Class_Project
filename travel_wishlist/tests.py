@@ -87,3 +87,7 @@ class TestAddNewPlace(TestCase):
         place_in_database = Place.objects.get(name="Tokyo", visited=True)
 
 
+
+
+
+

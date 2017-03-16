@@ -1,7 +1,6 @@
-from django import forms
+from django import  forms
 
 from .models import  Place
-
 
 class NewPlaceForm(forms.ModelForm):
     class Meta:
@@ -20,4 +19,3 @@ class PlaceVisitedForm(forms.ModelForm):
         widgets = {
             'date': DateInput(),
         }
-
